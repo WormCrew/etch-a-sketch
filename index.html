@@ -8,31 +8,40 @@
 </head>
 <body>
     <div class='MainHeader'>
+        <button id="buttonId" onclick="buttonClick();">Reset</button>
         <h1>Etch-a-Sketch</h1>
-        <button id="buttonId">Click Me</button>
     </div>
-    <div id='MainBoard'>
-
-
-
-    </div>
-
+    
+    <div id='MainBoard'></div>
 
 <script>
-const container = document.querySelector('#MainBoard');
-for (i=1;i<=(16*16);i++){
-    const content = document.createElement('div');
-    content.setAttribute ('id',i);
-    content.setAttribute('class','BoxItem')
-    content.addEventListener("mouseover", setBlack, false);
-    container.appendChild(content);
-    };
+    const container = document.querySelector('#MainBoard');
+    let rowAndColumnSize=16;
+    createDisplay(rowAndColumnSize);
 
+    function createDisplay(rowsAndColumns){
+        container.style.setProperty('grid-template-columns', 'repeat(' + rowsAndColumns + ', 1fr)');
+        for (i=1;i<=(rowsAndColumns * rowsAndColumns);i++){
+            const content = document.createElement('div');
+            content.setAttribute ('id',i);
+            content.setAttribute('class','BoxItem')
+            content.addEventListener("mouseover", setBlack, false);
+            container.appendChild(content);
+        };
+    }
 
-function setBlack(e)
-{  
-    e.target.style.background = 'black';
-}
+    function setBlack(e){  
+        e.target.style.background = 'black';
+    }
+
+    function buttonClick(){
+        var newBoxSize = prompt("How many rows and colums?", "");
+        while (container.firstChild) {
+        container.removeChild(container.firstChild);
+        }
+        rowAndColumnSize=120;
+        createDisplay(newBoxSize);
+    }
 
 </script>    
 </body>
